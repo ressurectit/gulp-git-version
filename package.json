@@ -1,6 +1,6 @@
 {
     "name": "@kukjevov/gulp-git-version",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Gulp plugin runs npm-git-version and prepares version file",
     "main": "index.js",
     "scripts":

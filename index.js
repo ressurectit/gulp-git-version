@@ -9,14 +9,17 @@ const gulp = require('gulp'),
 
 module.exports = function gitVersion(options, cb)
 {
-    var currentVersion = null;
     var fullPath = `${options.path}/${options.filename}`;
 
     if(fileExists.sync(fullPath))
     {
         var contents = decoder.end(read.sync(fullPath));
+        var matches = new RegExp(options.currentVersionRegex, 'gi').exec(contents);
 
-        currentVersion = new RegExp(options.currentVersionRegex, 'gi').exec(contents)[1];
+        if(matches)
+        {
+            options.extractorOptions.currentVersion = matches[1];
+        }
     }
 
     var extractor = new VersionsExtractor(options.extractorOptions);
@@ -34,7 +37,7 @@ Computed version is '${extractor.version}'`);
             file(options.filename, options.template, { src: true })
                 .pipe(handlebars({version: extractor.version}))
                 .pipe(gulp.dest(options.path))
-                .on('finish', function ()
+                .on('finish', function()
                 {
                     cb();
                 });
