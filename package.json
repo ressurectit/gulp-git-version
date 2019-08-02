@@ -1,28 +1,25 @@
 {
     "name": "gulp-git-version",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "description": "Gulp plugin runs npm-git-version and prepares version file",
     "main": "index.js",
-    "scripts":
-    {
+    "scripts": {
         "deploy:stable": "npp -b",
         "deploy:next": "npp -p -b -s \"beta\" -t \"next\"",
         "deploy:stable:local": "npp -b --registry http://local:4873",
-        "deploy:next:local": "npp -p -b -s \"beta\" -t \"next\" --registry http://local:4873" 
+        "deploy:next:local": "npp -p -b -s \"beta\" -t \"next\" --registry http://local:4873"
     },
     "author": "kukjevov",
     "license": "MIT",
-    "dependencies":
-    {
+    "dependencies": {
         "gulp": "^3.9.1",
         "file-exists": "^4.0.0",
         "gulp-file": "^0.3.0",
         "read-file": "^0.2.0",
         "gulp-compile-handlebars": "^0.6.1",
-        "npm-git-version": "^1.0.1"
+        "npm-git-version": "^1.1.1"
     },
-    "devDependencies":
-    {
+    "devDependencies": {
         "npm-publish-pkg": "~1.2.0"
     }
 }
