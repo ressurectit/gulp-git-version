@@ -3,15 +3,15 @@ const gulp = require('gulp'),
       file = require('gulp-file'),
       read = require('read-file'),
       handlebars = require('gulp-compile-handlebars'),
-      VersionsExtractor = require('npm-git-version').VersionsExtractor,
-      StringDecoder = require('string_decoder').StringDecoder,
+      {VersionsExtractor, updateBuildNumber} = require('npm-git-version'),
+      {StringDecoder} = require('string_decoder'),
       decoder = new StringDecoder('utf8');
 
 module.exports = function gitVersion(options, cb)
 {
     var fullPath = `${options.path}/${options.filename}`;
 
-    if(fileExists.sync(fullPath))
+    if(fileExists.sync(fullPath) && options.currentVersionRegex)
     {
         var contents = decoder.end(read.sync(fullPath));
         var matches = new RegExp(options.currentVersionRegex, 'gi').exec(contents);
@@ -21,6 +21,8 @@ module.exports = function gitVersion(options, cb)
             options.extractorOptions.currentVersion = matches[1];
         }
     }
+
+    updateBuildNumber(options.extractorOptions);
 
     var extractor = new VersionsExtractor(options.extractorOptions);
 
